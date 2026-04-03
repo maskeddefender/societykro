@@ -1,0 +1,61 @@
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "explicit"
+  },
+
+  "[go]": {
+    "editor.defaultFormatter": "golang.go",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    }
+  },
+
+  "[sql]": {
+    "editor.defaultFormatter": "mtxr.sqltools"
+  },
+
+  "go.lintTool": "golangci-lint",
+  "go.lintFlags": ["--fast"],
+  "go.useLanguageServer": true,
+  "go.testFlags": ["-v", "-count=1"],
+
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.tsdk": "node_modules/typescript/lib",
+
+  "files.associations": {
+    "*.sql": "sql",
+    "*.proto": "proto3"
+  },
+
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/.expo": true,
+    "**/.next": true,
+    "**/dist": true,
+    "**/bin": true
+  },
+
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/bin": true,
+    "**/.expo": true,
+    "**/.next": true
+  },
+
+  "sqltools.connections": [
+    {
+      "name": "SocietyKro Local",
+      "driver": "PostgreSQL",
+      "server": "localhost",
+      "port": 5432,
+      "database": "societykro",
+      "username": "societykro",
+      "password": "societykro_dev"
+    }
+  ]
+}

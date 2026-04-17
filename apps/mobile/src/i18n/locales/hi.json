@@ -1,0 +1,102 @@
+{
+  "common": {
+    "loading": "लोड हो रहा है...",
+    "retry": "फिर कोशिश करें",
+    "cancel": "रद्द करें",
+    "submit": "जमा करें",
+    "save": "सेव करें",
+    "delete": "हटाएं",
+    "confirm": "पुष्टि करें",
+    "back": "वापस",
+    "search": "खोजें",
+    "noData": "कोई डेटा नहीं मिला",
+    "error": "कुछ गलत हो गया"
+  },
+  "auth": {
+    "welcome": "SocietyKro में आपका स्वागत है",
+    "tagline": "आपकी सोसाइटी, सरल तरीके से",
+    "phoneLabel": "फोन नंबर",
+    "phonePlaceholder": "+91 98765 43210",
+    "sendOTP": "OTP भेजें",
+    "otpLabel": "OTP दर्ज करें",
+    "otpSent": "{{phone}} पर OTP भेजा गया",
+    "verifyOTP": "OTP सत्यापित करें",
+    "invalidOTP": "गलत OTP। कृपया फिर कोशिश करें।",
+    "otpExpired": "OTP समाप्त हो गया। नया OTP लें।",
+    "tooManyAttempts": "बहुत बार कोशिश की। 15 मिनट बाद प्रयास करें।",
+    "logout": "लॉगआउट"
+  },
+  "home": {
+    "greeting": "नमस्ते, {{name}}",
+    "society": "सोसाइटी",
+    "quickActions": "त्वरित कार्य",
+    "raiseComplaint": "शिकायत दर्ज करें",
+    "approveVisitor": "आगंतुक की अनुमति दें",
+    "payDues": "भुगतान करें",
+    "notices": "सूचनाएं",
+    "openComplaints": "खुली शिकायतें",
+    "pendingVisitors": "लंबित आगंतुक",
+    "pendingDues": "बकाया भुगतान"
+  },
+  "complaints": {
+    "title": "शिकायतें",
+    "raise": "शिकायत दर्ज करें",
+    "category": "श्रेणी",
+    "description": "विवरण",
+    "descPlaceholder": "अपनी समस्या बताएं...",
+    "addPhoto": "फोटो जोड़ें",
+    "priority": "प्राथमिकता",
+    "status": "स्थिति",
+    "open": "खुली",
+    "inProgress": "प्रगति में",
+    "resolved": "हल की गई",
+    "closed": "बंद",
+    "emergency": "आपातकाल",
+    "submitted": "शिकायत दर्ज हो गई!",
+    "ticketNo": "टिकट #{{ticket}}"
+  },
+  "visitors": {
+    "title": "आगंतुक",
+    "preApprove": "आगंतुक को पूर्व-अनुमति दें",
+    "visitorName": "आगंतुक का नाम",
+    "purpose": "उद्देश्य",
+    "approve": "अनुमति दें",
+    "deny": "अस्वीकार",
+    "otpGenerated": "OTP: {{otp}}",
+    "otpShareMsg": "यह OTP अपने मेहमान को बताएं",
+    "pending": "अनुमति लंबित",
+    "today": "आज के आगंतुक"
+  },
+  "payments": {
+    "title": "भुगतान",
+    "pending": "बकाया",
+    "paid": "भुगतान हो गया",
+    "payNow": "अभी भुगतान करें",
+    "history": "भुगतान इतिहास",
+    "amount": "राशि",
+    "dueDate": "देय तिथि",
+    "receipt": "रसीद डाउनलोड करें"
+  },
+  "notices": {
+    "title": "सूचनाएं",
+    "pinned": "पिन की गई",
+    "readBy": "{{count}} सदस्यों ने पढ़ी"
+  },
+  "profile": {
+    "title": "प्रोफ़ाइल",
+    "name": "नाम",
+    "phone": "फोन",
+    "language": "भाषा",
+    "seniorMode": "वरिष्ठ नागरिक मोड",
+    "society": "सोसाइटी",
+    "flat": "फ्लैट",
+    "role": "भूमिका"
+  },
+  "tabs": {
+    "home": "होम",
+    "complaints": "शिकायतें",
+    "visitors": "आगंतुक",
+    "payments": "भुगतान",
+    "more": "अधिक"
+  }
+}

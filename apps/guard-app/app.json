@@ -1,0 +1,29 @@
+{
+  "expo": {
+    "name": "SocietyKro Guard",
+    "slug": "societykro-guard",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "scheme": "societykro-guard",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0F172A"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0F172A"
+      },
+      "package": "in.societykro.guard"
+    },
+    "plugins": [
+      ["expo-router", { "root": "./src/app" }],
+      "expo-font",
+      "expo-camera"
+    ]
+  }
+}

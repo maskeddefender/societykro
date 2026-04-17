@@ -1,0 +1,271 @@
+### ==========================================
+### SocietyKro — Complete API Tests
+### Start: cd societykro && ./scripts/dev-start.sh
+### ==========================================
+
+### ==========================================
+### AUTH SERVICE (8081)
+### ==========================================
+
+### Health
+GET http://localhost:8081/health
+
+### Send OTP (Sharma Ji - resident)
+POST http://localhost:8081/api/v1/auth/otp/send
+Content-Type: application/json
+
+{"phone": "+919876543210"}
+
+### Verify OTP (dev bypass)
+# @name residentLogin
+POST http://localhost:8081/api/v1/auth/otp/verify
+Content-Type: application/json
+
+{"phone": "+919876543210", "otp": "000000"}
+
+### Save resident token
+@residentToken = {{residentLogin.response.body.data.access_token}}
+@residentRefresh = {{residentLogin.response.body.data.refresh_token}}
+
+### Send OTP (Mehta Bhai - secretary/admin)
+POST http://localhost:8081/api/v1/auth/otp/send
+Content-Type: application/json
+
+{"phone": "+919876543212"}
+
+### Verify OTP (admin)
+# @name adminLogin
+POST http://localhost:8081/api/v1/auth/otp/verify
+Content-Type: application/json
+
+{"phone": "+919876543212", "otp": "000000"}
+
+### Save admin token
+@adminToken = {{adminLogin.response.body.data.access_token}}
+
+### Get Profile
+GET http://localhost:8081/api/v1/auth/me
+Authorization: Bearer {{residentToken}}
+
+### Refresh Token
+POST http://localhost:8081/api/v1/auth/refresh
+Content-Type: application/json
+
+{"refresh_token": "{{residentRefresh}}"}
+
+### Get Society
+GET http://localhost:8081/api/v1/societies/a0000000-0000-0000-0000-000000000001
+Authorization: Bearer {{residentToken}}
+
+### List Flats
+GET http://localhost:8081/api/v1/societies/a0000000-0000-0000-0000-000000000001/flats
+Authorization: Bearer {{residentToken}}
+
+### ==========================================
+### COMPLAINT SERVICE (8082)
+### ==========================================
+
+### Health
+GET http://localhost:8082/health
+
+### Create Complaint
+# @name createComplaint
+POST http://localhost:8082/api/v1/complaints
+Authorization: Bearer {{residentToken}}
+Content-Type: application/json
+
+{
+  "category": "water",
+  "title": "No water supply in Block A",
+  "description": "Water tank pump seems broken. No supply since morning.",
+  "priority": "high",
+  "image_urls": []
+}
+
+@complaintId = {{createComplaint.response.body.data.id}}
+
+### List Complaints (all)
+GET http://localhost:8082/api/v1/complaints
+Authorization: Bearer {{residentToken}}
+
+### List Complaints (filtered)
+GET http://localhost:8082/api/v1/complaints?status=open&category=water
+Authorization: Bearer {{residentToken}}
+
+### Get Complaint Detail
+GET http://localhost:8082/api/v1/complaints/{{complaintId}}
+Authorization: Bearer {{residentToken}}
+
+### Add Comment
+POST http://localhost:8082/api/v1/complaints/{{complaintId}}/comments
+Authorization: Bearer {{residentToken}}
+Content-Type: application/json
+
+{"comment": "This is really urgent, happening every day now"}
+
+### List Comments
+GET http://localhost:8082/api/v1/complaints/{{complaintId}}/comments
+Authorization: Bearer {{residentToken}}
+
+### Update Status (admin)
+PUT http://localhost:8082/api/v1/complaints/{{complaintId}}/status
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{"status": "in_progress"}
+
+### Complaint Analytics
+GET http://localhost:8082/api/v1/complaints/analytics
+Authorization: Bearer {{adminToken}}
+
+### ==========================================
+### VISITOR SERVICE (8083)
+### ==========================================
+
+### Health
+GET http://localhost:8083/health
+
+### Pre-approve Visitor
+# @name preApprove
+POST http://localhost:8083/api/v1/visitors/pre-approve
+Authorization: Bearer {{residentToken}}
+Content-Type: application/json
+
+{
+  "name": "Rahul Kumar",
+  "purpose": "guest",
+  "phone": "+919999888877"
+}
+
+### List Visitors
+GET http://localhost:8083/api/v1/visitors
+Authorization: Bearer {{residentToken}}
+
+### List Active Visitors
+GET http://localhost:8083/api/v1/visitors/active
+Authorization: Bearer {{residentToken}}
+
+### ==========================================
+### PAYMENT SERVICE (8084)
+### ==========================================
+
+### Health
+GET http://localhost:8084/health
+
+### Generate Monthly Bills (admin only)
+POST http://localhost:8084/api/v1/payments/generate-bills
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{"month": "2026-04"}
+
+### List Payments
+GET http://localhost:8084/api/v1/payments
+Authorization: Bearer {{residentToken}}
+
+### Get Pending Dues
+GET http://localhost:8084/api/v1/payments/pending
+Authorization: Bearer {{residentToken}}
+
+### Get Defaulters (admin only)
+GET http://localhost:8084/api/v1/payments/defaulters
+Authorization: Bearer {{adminToken}}
+
+### Financial Summary (admin only)
+GET http://localhost:8084/api/v1/financial-summary
+Authorization: Bearer {{adminToken}}
+
+### ==========================================
+### NOTICE SERVICE (8085)
+### ==========================================
+
+### Health
+GET http://localhost:8085/health
+
+### Create Notice (admin)
+# @name createNotice
+POST http://localhost:8085/api/v1/notices
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "title": "Annual General Meeting",
+  "body": "AGM scheduled for 20th April 2026 at 6 PM in the clubhouse. All members requested to attend.",
+  "category": "meeting",
+  "is_pinned": true,
+  "broadcast_whatsapp": true
+}
+
+@noticeId = {{createNotice.response.body.data.id}}
+
+### List Notices
+GET http://localhost:8085/api/v1/notices
+Authorization: Bearer {{residentToken}}
+
+### Get Notice Detail (auto-marks as read)
+GET http://localhost:8085/api/v1/notices/{{noticeId}}
+Authorization: Bearer {{residentToken}}
+
+### ==========================================
+### VENDOR SERVICE (8086)
+### ==========================================
+
+### Health
+GET http://localhost:8086/health
+
+### List Vendors
+GET http://localhost:8086/api/v1/vendors
+Authorization: Bearer {{adminToken}}
+
+### Create Vendor (admin)
+POST http://localhost:8086/api/v1/vendors
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "name": "Quick Fix Pest Control",
+  "phone": "+919876500004",
+  "category": "pest_control"
+}
+
+### ==========================================
+### VOICE SERVICE (8090)
+### ==========================================
+
+### Health
+GET http://localhost:8090/health
+
+### Supported Languages (public)
+GET http://localhost:8090/api/v1/languages
+
+### Transcribe (stub)
+POST http://localhost:8090/api/v1/voice/transcribe
+Authorization: Bearer {{residentToken}}
+Content-Type: application/json
+
+{"audio_base64": "dGVzdA==", "source_language": "hi"}
+
+### ==========================================
+### MESSAGE ROUTER (8089)
+### ==========================================
+
+### Health
+GET http://localhost:8089/health
+
+### ==========================================
+### ERROR CASES
+### ==========================================
+
+### No token → 401
+GET http://localhost:8082/api/v1/complaints
+
+### Invalid token → 401
+GET http://localhost:8082/api/v1/complaints
+Authorization: Bearer invalid_token
+
+### Resident trying admin endpoint → 403
+POST http://localhost:8084/api/v1/payments/generate-bills
+Authorization: Bearer {{residentToken}}
+Content-Type: application/json
+
+{"month": "2026-04"}

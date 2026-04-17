@@ -1,0 +1,35 @@
+{
+  "expo": {
+    "name": "SocietyKro",
+    "slug": "societykro",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "scheme": "societykro",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#1A3C5E"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "in.societykro.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#1A3C5E"
+      },
+      "package": "in.societykro.app"
+    },
+    "plugins": [
+      ["expo-router", { "root": "./src/app" }],
+      "expo-font",
+      "expo-camera",
+      "expo-av",
+      "expo-image-picker"
+    ]
+  }
+}

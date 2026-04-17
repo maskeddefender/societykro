@@ -62,46 +62,40 @@ migrate: ## Run all database migrations
 	@echo "==> Running migrations..."
 	@for f in db/migrations/*.sql; do \
 		echo "  Applying $$f..."; \
-		PGPASSWORD=societykro_dev psql -h localhost -U societykro -d societykro -f $$f; \
+		docker exec -i societykro-postgres psql -U societykro -d societykro < $$f; \
 	done
 	@echo "==> Migrations complete!"
 
 migrate-fresh: ## Drop all tables and re-run migrations (DESTRUCTIVE)
 	@echo "==> Dropping all tables..."
-	PGPASSWORD=societykro_dev psql -h localhost -U societykro -d societykro -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
+	docker exec societykro-postgres psql -U societykro -d societykro -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
 	@$(MAKE) migrate
 
 seed: ## Seed database with test data
 	@echo "==> Seeding database..."
 	@for f in db/seeds/*.sql; do \
 		echo "  Seeding $$f..."; \
-		PGPASSWORD=societykro_dev psql -h localhost -U societykro -d societykro -f $$f; \
+		docker exec -i societykro-postgres psql -U societykro -d societykro < $$f; \
 	done
 	@echo "==> Seed complete!"
+
+db-shell: ## Open psql shell inside PostgreSQL container
+	docker exec -it societykro-postgres psql -U societykro -d societykro
 
 # ==========================================
 # DEVELOPMENT
 # ==========================================
-dev: docker-up migrate ## Start everything (databases + services + apps)
-	@echo "==> Starting all services..."
-	@$(MAKE) dev-services &
-	@$(MAKE) dev-mobile &
-	@$(MAKE) dev-web &
-	@wait
+dev-all: build-services ## Build binaries + start all services (recommended)
+	./scripts/dev-start.sh
 
-dev-services: ## Start all Go backend services
-	@echo "==> Starting Go services..."
-	cd services/auth-service && go run cmd/server/main.go &
-	cd services/complaint-service && go run cmd/server/main.go &
-	cd services/visitor-service && go run cmd/server/main.go &
-	cd services/payment-service && go run cmd/server/main.go &
-	cd services/notice-service && go run cmd/server/main.go &
-	cd services/notification-service && go run cmd/server/main.go &
-	cd services/message-router && go run cmd/server/main.go &
-	cd services/voice-service && go run cmd/server/main.go &
+dev-stop: ## Stop all backend services
+	./scripts/dev-stop.sh
+
+dev-services: build-services ## Start backend services only
+	./scripts/dev-start.sh
 
 dev-mobile: ## Start React Native mobile app
-	cd apps/mobile && pnpm start
+	cd apps/mobile && npx expo start
 
 dev-web: ## Start Next.js web admin
 	cd apps/web-admin && pnpm dev
@@ -124,7 +118,13 @@ sqlc: ## Generate Go code from SQL queries
 # ==========================================
 # TESTING
 # ==========================================
-test: test-go test-ts ## Run all tests
+test: test-api ## Run all tests
+
+test-api: ## Run Playwright API integration tests (requires services running)
+	@echo "==> Clearing Redis rate limits..."
+	@docker exec societykro-redis redis-cli FLUSHDB > /dev/null
+	@echo "==> Running Playwright API tests..."
+	cd tests && npx playwright test --project=api --reporter=list
 
 test-go: ## Run Go tests
 	@echo "==> Running Go tests..."

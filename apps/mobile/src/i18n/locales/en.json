@@ -1,0 +1,102 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "retry": "Retry",
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "save": "Save",
+    "delete": "Delete",
+    "confirm": "Confirm",
+    "back": "Back",
+    "search": "Search",
+    "noData": "No data found",
+    "error": "Something went wrong"
+  },
+  "auth": {
+    "welcome": "Welcome to SocietyKro",
+    "tagline": "Managing your society, simplified",
+    "phoneLabel": "Phone Number",
+    "phonePlaceholder": "+91 98765 43210",
+    "sendOTP": "Send OTP",
+    "otpLabel": "Enter OTP",
+    "otpSent": "OTP sent to {{phone}}",
+    "verifyOTP": "Verify OTP",
+    "invalidOTP": "Invalid OTP. Please try again.",
+    "otpExpired": "OTP expired. Request a new one.",
+    "tooManyAttempts": "Too many attempts. Try after 15 minutes.",
+    "logout": "Logout"
+  },
+  "home": {
+    "greeting": "Hello, {{name}}",
+    "society": "Society",
+    "quickActions": "Quick Actions",
+    "raiseComplaint": "Raise Complaint",
+    "approveVisitor": "Approve Visitor",
+    "payDues": "Pay Dues",
+    "notices": "Notices",
+    "openComplaints": "Open Complaints",
+    "pendingVisitors": "Pending Visitors",
+    "pendingDues": "Pending Dues"
+  },
+  "complaints": {
+    "title": "Complaints",
+    "raise": "Raise Complaint",
+    "category": "Category",
+    "description": "Description",
+    "descPlaceholder": "Describe your issue...",
+    "addPhoto": "Add Photo",
+    "priority": "Priority",
+    "status": "Status",
+    "open": "Open",
+    "inProgress": "In Progress",
+    "resolved": "Resolved",
+    "closed": "Closed",
+    "emergency": "Emergency",
+    "submitted": "Complaint submitted!",
+    "ticketNo": "Ticket #{{ticket}}"
+  },
+  "visitors": {
+    "title": "Visitors",
+    "preApprove": "Pre-Approve Visitor",
+    "visitorName": "Visitor Name",
+    "purpose": "Purpose",
+    "approve": "Approve",
+    "deny": "Deny",
+    "otpGenerated": "OTP: {{otp}}",
+    "otpShareMsg": "Share this OTP with your visitor",
+    "pending": "Pending Approval",
+    "today": "Today's Visitors"
+  },
+  "payments": {
+    "title": "Payments",
+    "pending": "Pending",
+    "paid": "Paid",
+    "payNow": "Pay Now",
+    "history": "Payment History",
+    "amount": "Amount",
+    "dueDate": "Due Date",
+    "receipt": "Download Receipt"
+  },
+  "notices": {
+    "title": "Notices",
+    "pinned": "Pinned",
+    "readBy": "Read by {{count}} members"
+  },
+  "profile": {
+    "title": "Profile",
+    "name": "Name",
+    "phone": "Phone",
+    "language": "Language",
+    "seniorMode": "Senior Citizen Mode",
+    "society": "Society",
+    "flat": "Flat",
+    "role": "Role"
+  },
+  "tabs": {
+    "home": "Home",
+    "complaints": "Complaints",
+    "visitors": "Visitors",
+    "payments": "Payments",
+    "more": "More"
+  }
+}
